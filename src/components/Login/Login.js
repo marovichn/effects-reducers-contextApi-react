@@ -11,7 +11,7 @@ const emailReducer = (state, action) => {
   if (action.type === "USER_BLUR") {
     return { value: state.value, isValid: state.value.includes("@") };
   }
-  return { value: "", isValid: true };
+  return { value: "", isValid: false };
 };
 
 const passwordReducer = (state, action) => {
@@ -21,7 +21,7 @@ const passwordReducer = (state, action) => {
   if (action.type === "PASS_BLUR") {
     return { value: state.value, isValid: state.value.trim().length > 6 };
   }
-  return { value: "", isValid: true };
+  return { value: "", isValid: false };
 };
 
 const Login = (props) => {
@@ -33,24 +33,24 @@ const Login = (props) => {
 
   const [emailState, dispatchEmail] = useReducer(
     emailReducer,
-    { value: "", isValid: true },
+    { value: "", isValid: false },
     () => {
       return {
         value: "",
-        isValid: true,
+        isValid: false,
       };
     }
   );
   const [passwordState, dispatchPassword] = useReducer(
     passwordReducer,
-    { value: "", isValid: true },
+    { value: "", isValid: false },
     () => {
-      return { value: "", isValid: true };
+      return { value: "", isValid: false };
     }
   );
 
   const { isValid: emailIsValid } = emailState;
-  const { isValid: passwordIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
 
   useEffect(() => {
     const identifier = setTimeout(() => {
